@@ -1,0 +1,23 @@
+{
+  "name": "sigfox-rfid-server",
+  "version": "1.0.0",
+  "description": "Nodejs server that does the following * Receive the Sigfox callbacks from demo devices * Store the data in a db * Expose the data, using Server sent events to update the display",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "nicolsc",
+  "license": "ISC",
+  "dependencies":{
+     "body-parser": "1.14.0",
+    "debug": "2.2.0",
+    "ejs":  "2.3.4",
+    "express": "4.13.3",
+    "moment":"2.10.6",
+    "mongojs": "1.3.0",
+    "sse-channel":"2.0.0"
+  },
+  "engines":{
+    "node":"4.1.0"
+  }
+}
