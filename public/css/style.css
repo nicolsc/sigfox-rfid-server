@@ -55,7 +55,7 @@ section {
   min-height: 48px;
   height: 48px; }
 
-.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:focus, .navbar-inverse .navbar-nav > .active > a:hover {
+.navbar a:hover {
   background: #028C7E;
   color: #fff;
   border-bottom: 2px solid #fff; }
