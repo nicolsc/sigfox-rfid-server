@@ -18,7 +18,7 @@ catch(e){
   console.log(e);
 }
 
-
+const request = require('request');
 const sseChannel = require('sse-channel');
 let ssEventChannels = [];
 
@@ -96,6 +96,8 @@ app.post('/sigfox', function(req, res){
   }
   
   broadcastEvent(req.body);
+  
+  sendToSlack(req.body);
   
 });
 
@@ -207,6 +209,31 @@ function broadcastEvent(body){
   else{
     debug("No subscriber to %s", body.deviceid);
   }
+}
+function sendToSlack(body){
+  if (!process.env.SLACK_URL || !process.env.SLACK_CHANNEL){
+    debug("No Slack params provided. Abort.");
+    return;
+  }
+  request({
+    method: 'post',
+    url:process.env.SLACK_URL,
+    json: true,
+    body: {
+              text: 'New scan : '+body.data+'\nSent via SIGFOX', 
+        channel: process.env.SLACK_CHANNEL || 'sigfox-rfid', 
+        username: 'RFID demo #'+body.deviceid,
+        icon_emoji: ':key:'
+    }
+  }, function(err, response, body){
+    if (err){
+      debug("Slack Error");
+      debug(err);
+      return;
+    }
+    
+    debug("Slack response %s",body);
+  });
 }
 function getTagInfo(id){
   var names = {
